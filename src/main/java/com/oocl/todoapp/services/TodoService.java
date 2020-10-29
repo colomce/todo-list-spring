@@ -3,6 +3,7 @@ package com.oocl.todoapp.services;
 import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,10 @@ public class TodoService {
             optionalTodo.get().setDone(updateTodo.getDone());
             return todoRepository.save(optionalTodo.get());
         }
+        return null;
+    }
+
+    public List<Todo> getDoneTodo() {
         return null;
     }
 }

@@ -113,4 +113,20 @@ public class TodoServiceTest {
         //then
         assertSame(updateTodo, updatedTodo);
     }
+
+    @Test
+    public void should_return_2_done_todo_when_get_all_given_2_done_todos() {
+        //given
+        Todo firstTodo = new Todo(1, "", true);
+        Todo secondTodo = new Todo(2, "", true);
+        TodoRepository todoRepository = mock(TodoRepository.class);
+        when(todoRepository.findByDone(true)).thenReturn(Arrays.asList(firstTodo, secondTodo));
+        TodoService todoService = new TodoService(todoRepository);
+
+        //when
+        Integer todoCount = todoService.getDoneTodo().size();
+
+        //then
+        assertEquals(2, todoCount);
+    }
 }
