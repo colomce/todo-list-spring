@@ -115,4 +115,18 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.text").value("Refactor"))
                 .andExpect(jsonPath("$.done").value(true));
     }
+
+    @Test
+    void should_return_the_error_response_with_message_and_status_when_delete_by_id_given_invalid_todo_id() throws Exception {
+        //given
+        Integer todoId = 12345;
+
+        // when then
+        mockMvc.perform(delete("/api/todos/{todoId}", todoId))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Todo with id:12345 not found"))
+                .andExpect(jsonPath("$.status").value("NOT_FOUND"))
+                .andReturn();
+    }
+    
 }
