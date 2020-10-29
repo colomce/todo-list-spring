@@ -164,4 +164,21 @@ class TodoIntegrationTest {
                 .andReturn();
     }
 
+    @Test
+    void should_return_the_error_response_with_message_and_status_when_update_given_empty_todo_text() throws Exception {
+        //given
+        Todo todo = new Todo(1, "Code", false);
+        Todo createdTodo = todoRepository.save(todo);
+        String todoUpdateJson = "{\"text\" : \"\"}";
+
+        // when then
+        mockMvc.perform(put("/api/todos/{todoId}", createdTodo.getId())
+                .content(todoUpdateJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Todo has invalid fields"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andReturn();
+    }
+
 }
