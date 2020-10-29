@@ -1,11 +1,15 @@
 package com.oocl.todoapp.services;
 
+import com.oocl.todoapp.exceptions.InvalidTodoException;
 import com.oocl.todoapp.exceptions.TodoNotFoundException;
 import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class TodoService {
@@ -20,7 +24,14 @@ public class TodoService {
     }
 
     public Todo create(Todo newTodo) {
+        validateTodo(newTodo);
         return todoRepository.save(newTodo);
+    }
+
+    private void validateTodo(Todo newTodo) {
+        if(isNull(newTodo.getText()) || newTodo.getText().isEmpty()){
+            throw new InvalidTodoException("Todo has invalid fields");
+        }
     }
 
     private Todo searchById(Integer id) {
