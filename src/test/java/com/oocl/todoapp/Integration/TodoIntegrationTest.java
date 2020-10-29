@@ -148,4 +148,20 @@ class TodoIntegrationTest {
                 .andExpect(jsonPath("$.status").value("NOT_FOUND"))
                 .andReturn();
     }
+
+    @Test
+    void should_return_the_error_response_with_message_and_status_when_create_given_empty_todo_text() throws Exception {
+        //given
+        String todoUpdateJson = "{\"text\" : \"\"}";
+
+        // when then
+        mockMvc.perform(post("/api/todos")
+                .content(todoUpdateJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Todo has invalid fields"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andReturn();
+    }
+
 }
