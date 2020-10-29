@@ -124,7 +124,7 @@ public class TodoServiceTest {
         TodoService todoService = new TodoService(todoRepository);
 
         //when
-        Integer todoCount = todoService.getDoneTodo(true).size();
+        Integer todoCount = todoService.getTodoByDone(true).size();
 
         //then
         assertEquals(2, todoCount);
@@ -140,7 +140,7 @@ public class TodoServiceTest {
         TodoService todoService = new TodoService(todoRepository);
 
         //when
-        Integer todoCount = todoService.getDoneTodo(false).size();
+        Integer todoCount = todoService.getTodoByDone(false).size();
 
         //then
         assertEquals(2, todoCount);
