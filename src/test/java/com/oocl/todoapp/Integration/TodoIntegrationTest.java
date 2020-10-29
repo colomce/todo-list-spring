@@ -59,8 +59,10 @@ public class TodoIntegrationTest {
     @Test
     public void should_return_all_undone_todos_when_getAll_given_1_undone_todos() throws Exception {
         //given
-        Todo todo = new Todo(1,"Code", false);
-        todoRepository.save(todo);
+        Todo undoneTodo = new Todo(1,"Code", false);
+        Todo doneTodo = new Todo(1,"Refactor", true);
+        todoRepository.save(undoneTodo);
+        todoRepository.save(doneTodo);
 
         //when then
         mockMvc.perform(get("/api/todos?done=false"))
