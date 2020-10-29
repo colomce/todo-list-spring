@@ -44,6 +44,7 @@ public class TodoService {
     }
 
     public Todo update(Integer id, Todo updateTodo) {
+        validateTodo(updateTodo);
         Todo todo = searchById(id);
         todo.setText(updateTodo.getText());
         todo.setDone(updateTodo.getDone());
