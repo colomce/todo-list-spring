@@ -4,6 +4,7 @@ import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TodoService {
     private TodoRepository todoRepository;
@@ -25,6 +26,12 @@ public class TodoService {
     }
 
     public Todo update(Integer id, Todo updateTodo) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if (optionalTodo.isPresent()) {
+            optionalTodo.get().setText(updateTodo.getText());
+            optionalTodo.get().setDone(updateTodo.getDone());
+            return todoRepository.save(optionalTodo.get());
+        }
         return null;
     }
 }

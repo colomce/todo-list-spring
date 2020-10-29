@@ -22,4 +22,16 @@ public class Todo {
     public Boolean getDone() {
         return done;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
 }
