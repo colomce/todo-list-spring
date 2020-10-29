@@ -44,10 +44,9 @@ public class TodoIntegrationTest {
 
         //when then
         mockMvc.perform(post("/api/todos"))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.text").value("Code"))
                 .andExpect(jsonPath("$.done").value(false));
     }
-
 }
