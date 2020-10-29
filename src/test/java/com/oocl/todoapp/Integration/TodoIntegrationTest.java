@@ -55,4 +55,18 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.text").value("Code"))
                 .andExpect(jsonPath("$.done").value(false));
     }
+
+    @Test
+    public void should_return_all_undone_todos_when_getAll_given_1_undone_todos() throws Exception {
+        //given
+        Todo todo = new Todo(1,"Code", false);
+        todoRepository.save(todo);
+
+        //when then
+        mockMvc.perform(get("/api/todos?done=false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").isNumber())
+                .andExpect(jsonPath("$[0].text").value("Code"))
+                .andExpect(jsonPath("$[0].done").value(false));
+    }
 }
