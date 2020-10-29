@@ -130,5 +130,21 @@ public class TodoServiceTest {
         assertEquals(2, todoCount);
     }
 
+    @Test
+    public void should_return_2_undone_todo_when_get_all_given_2_undone_todos() {
+        //given
+        Todo firstTodo = new Todo(1, "", false);
+        Todo secondTodo = new Todo(2, "", false);
+        TodoRepository todoRepository = mock(TodoRepository.class);
+        when(todoRepository.findByDone(false)).thenReturn(Arrays.asList(firstTodo, secondTodo));
+        TodoService todoService = new TodoService(todoRepository);
+
+        //when
+        Integer todoCount = todoService.getDoneTodo(false).size();
+
+        //then
+        assertEquals(2, todoCount);
+    }
+
 
 }
