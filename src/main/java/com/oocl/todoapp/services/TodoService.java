@@ -6,7 +6,6 @@ import com.oocl.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -27,6 +26,7 @@ public class TodoService {
     private Todo searchById(Integer id) {
         return todoRepository.findById(id).orElseThrow(() -> new TodoNotFoundException("Todo with id:" + id + " not found"));
     }
+
     public void delete(Integer id) {
         Todo todo = searchById(id);
         todoRepository.delete(todo);
