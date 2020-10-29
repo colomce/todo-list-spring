@@ -33,13 +33,10 @@ public class TodoService {
     }
 
     public Todo update(Integer id, Todo updateTodo) {
-        Optional<Todo> optionalTodo = todoRepository.findById(id);
-        if (optionalTodo.isPresent()) {
-            optionalTodo.get().setText(updateTodo.getText());
-            optionalTodo.get().setDone(updateTodo.getDone());
-            return todoRepository.save(optionalTodo.get());
-        }
-        return null;
+        Todo todo = searchById(id);
+        todo.setText(updateTodo.getText());
+        todo.setDone(updateTodo.getDone());
+        return todoRepository.save(todo);
     }
 
     public List<Todo> getTodoByDone(Boolean isDone) {
