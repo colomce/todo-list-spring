@@ -60,7 +60,7 @@ public class TodoIntegrationTest {
     public void should_return_all_undone_todos_when_getAll_given_1_undone_todos() throws Exception {
         //given
         Todo undoneTodo = new Todo(1,"Code", false);
-        Todo doneTodo = new Todo(1,"Refactor", true);
+        Todo doneTodo = new Todo(2,"Refactor", true);
         todoRepository.save(undoneTodo);
         todoRepository.save(doneTodo);
 
@@ -71,4 +71,5 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$[0].text").value("Code"))
                 .andExpect(jsonPath("$[0].done").value(false));
     }
+
 }
