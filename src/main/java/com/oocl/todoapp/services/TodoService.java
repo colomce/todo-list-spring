@@ -23,8 +23,11 @@ public class TodoService {
         return todoRepository.save(newTodo);
     }
 
-    public void delete(Todo todo) {
-        todoRepository.delete(todo);
+    public void delete(Integer id) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if (optionalTodo.isPresent()){
+            todoRepository.delete(optionalTodo.get());
+        }
     }
 
     public Todo update(Integer id, Todo updateTodo) {

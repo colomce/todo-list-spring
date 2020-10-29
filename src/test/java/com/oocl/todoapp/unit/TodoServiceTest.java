@@ -87,10 +87,11 @@ public class TodoServiceTest {
         //given
         Todo todo = new Todo(1, "Charlie", true);
         TodoRepository todoRepository = mock(TodoRepository.class);
+        when(todoRepository.findById(todo.getId())).thenReturn(Optional.of(todo));
         TodoService todoService = new TodoService(todoRepository);
 
         //when
-        todoService.delete(todo);
+        todoService.delete(todo.getId());
 
         //then
         verify(todoRepository, times(1)).delete(todo);
@@ -145,6 +146,4 @@ public class TodoServiceTest {
         //then
         assertEquals(2, todoCount);
     }
-
-
 }
