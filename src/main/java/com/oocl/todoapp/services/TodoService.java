@@ -36,7 +36,7 @@ public class TodoService {
         return null;
     }
 
-    public List<Todo> getDoneTodo() {
-        return null;
+    public List<Todo> getDoneTodo(Boolean isDone) {
+        return todoRepository.findByDone(isDone);
     }
 }

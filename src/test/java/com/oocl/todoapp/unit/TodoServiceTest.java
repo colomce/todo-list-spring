@@ -124,9 +124,11 @@ public class TodoServiceTest {
         TodoService todoService = new TodoService(todoRepository);
 
         //when
-        Integer todoCount = todoService.getDoneTodo().size();
+        Integer todoCount = todoService.getDoneTodo(true).size();
 
         //then
         assertEquals(2, todoCount);
     }
+
+
 }
