@@ -21,6 +21,6 @@ public class TodoService {
     }
 
     public void delete(Todo todo) {
-
+        todoRepository.delete(todo);
     }
 }
