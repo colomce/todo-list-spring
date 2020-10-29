@@ -110,7 +110,7 @@ public class TodoIntegrationTest {
         mockMvc.perform(put("/api/todos/{id}", createdTodo.getId())
                 .content(updatedJson)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.text").value("Refactor"))
                 .andExpect(jsonPath("$.done").value(true));
