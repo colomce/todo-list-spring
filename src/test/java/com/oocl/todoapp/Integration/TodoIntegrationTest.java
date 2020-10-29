@@ -128,5 +128,20 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.status").value("NOT_FOUND"))
                 .andReturn();
     }
-    
+
+    @Test
+    void should_return_the_error_response_with_message_and_status_when_update_id_given_invalid_todoId() throws Exception {
+        //given
+        Integer todoId = 12345;
+        String todoUpdateJson = "{\"text\" : \"Refactoring\"}";
+
+        // when then
+        mockMvc.perform(put("/todos/{todoId}", todoId)
+                .content(todoUpdateJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Todo with id:12345 not found"))
+                .andExpect(jsonPath("$.status").value("NOT_FOUND"))
+                .andReturn();
+    }
 }
