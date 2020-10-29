@@ -5,6 +5,7 @@ import com.oocl.todoapp.repository.TodoRepository;
 import com.oocl.todoapp.services.TodoService;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.dsig.Manifest;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +17,8 @@ public class TodoServiceTest {
     @Test
     void should_return_2_todo_when_get_all_given_2_todos() {
         //given
-        Todo firstTodo = new Todo();
-        Todo secondTodo = new Todo();
+        Todo firstTodo = new Todo(1);
+        Todo secondTodo = new Todo(2);
         TodoRepository todoRepository = mock(TodoRepository.class);
         when(todoRepository.findAll()).thenReturn(Arrays.asList(firstTodo, secondTodo));
         TodoService todoService = new TodoService(todoRepository);
@@ -27,5 +28,22 @@ public class TodoServiceTest {
 
         //then
         assertEquals(2, todoCount);
+    }
+
+    @Test
+    public void should_create_todo_with_id_i_when_create_given_todo_with_id_1() {
+        //given
+        Todo newTodo = new Todo(1);
+        TodoRepository todoRepository = mock(TodoRepository.class);
+        TodoService todoService = new TodoService(todoRepository);
+        when(todoRepository.save(newTodo)).thenReturn(newTodo);
+
+        //when
+        Todo todo = todoService.create(newTodo);
+
+
+        //then
+        assertEquals(1, todo.getId());
+
     }
 }
