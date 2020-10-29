@@ -9,8 +9,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TodoServiceTest {
 
@@ -79,5 +78,19 @@ public class TodoServiceTest {
         assertEquals(1, todo.getId());
         assertEquals("Charlie", todo.getText());
         assertTrue(todo.getDone());
+    }
+
+    @Test
+    public void should_trigger_repository_once_when_service_delete_called_given_todo() {
+        //given
+        Todo todo = new Todo(1, "Charlie", true);
+        TodoRepository todoRepository = mock(TodoRepository.class);
+        TodoService todoService = new TodoService(todoRepository);
+
+        //when
+        todoService.delete(todo);
+
+        //then
+        verify(todoRepository, times(1)).delete(todo);
     }
 }
