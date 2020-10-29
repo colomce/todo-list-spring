@@ -11,6 +11,10 @@ public class TodoResponse {
         this.done = done;
     }
 
+    public TodoResponse() {
+
+    }
+
     public Integer getId() {
         return id;
     }
