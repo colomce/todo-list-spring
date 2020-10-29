@@ -136,7 +136,7 @@ public class TodoIntegrationTest {
         String todoUpdateJson = "{\"text\" : \"Refactoring\"}";
 
         // when then
-        mockMvc.perform(put("/todos/{todoId}", todoId)
+        mockMvc.perform(put("/api/todos/{todoId}", todoId)
                 .content(todoUpdateJson)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
