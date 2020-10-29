@@ -4,7 +4,7 @@ public class Todo {
     private Integer id;
     private String text;
 
-    public Todo(Integer id, String text) {
+    public Todo(Integer id, String text, Boolean done) {
         this.id = id;
         this.text = text;
     }
@@ -15,5 +15,9 @@ public class Todo {
 
     public String getText() {
         return text;
+    }
+
+    public Boolean getDone() {
+        return null;
     }
 }
