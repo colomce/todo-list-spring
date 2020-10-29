@@ -40,4 +40,9 @@ public class TodoController {
         return todoMapper.toResponseList(todoService.getTodoByDone(done));
     }
 
+    @DeleteMapping("/{id}")
+    private void delete(@PathVariable("id") Integer id){
+        todoService.delete(id);
+    }
+
 }
