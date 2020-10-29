@@ -23,4 +23,8 @@ public class TodoService {
     public void delete(Todo todo) {
         todoRepository.delete(todo);
     }
+
+    public Todo update(Integer id, Todo updateTodo) {
+        return null;
+    }
 }

@@ -6,9 +6,11 @@ import com.oocl.todoapp.services.TodoService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 public class TodoServiceTest {
@@ -92,5 +94,23 @@ public class TodoServiceTest {
 
         //then
         verify(todoRepository, times(1)).delete(todo);
+    }
+
+    @Test
+    public void should_return_updated_todo_done_true_when_update_given_todo_with_done_of_false() {
+        //given
+        Todo todo = new Todo(1, "Charlie", false);
+        Todo updateTodo = new Todo(1, "Charlie", true);
+        Optional<Todo> optionalTodo = Optional.of(updateTodo);
+        TodoRepository todoRepository = mock(TodoRepository.class);
+        when(todoRepository.findById(todo.getId())).thenReturn(optionalTodo);
+        when(todoRepository.save(optionalTodo.get())).thenReturn(updateTodo);
+        TodoService todoService = new TodoService(todoRepository);
+
+        //when
+        Todo updatedTodo = todoService.update(todo.getId(), updateTodo);
+
+        //then
+        assertSame(updateTodo, updatedTodo);
     }
 }
