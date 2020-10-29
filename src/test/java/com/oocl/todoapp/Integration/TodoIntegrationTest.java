@@ -95,4 +95,24 @@ public class TodoIntegrationTest {
         assertFalse(fetchDeletedTodo.isPresent());
     }
 
+    @Test
+    public void should_return_updated_todo_when_update_given_todo() throws Exception {
+        //given
+        Todo todo = new Todo(1,"Code", false);
+        Todo createdTodo = todoRepository.save(todo);
+
+        String updatedJson = "{\n" +
+                "    \"text\" : \"Refactor\",\n" +
+                "    \"done\" : true\n" +
+                "}";
+
+        //when then
+        mockMvc.perform(put("/api/todos/{id}", createdTodo.getId())
+                .content(updatedJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.text").value("Refactor"))
+                .andExpect(jsonPath("$.done").value(true));
+    }
 }
