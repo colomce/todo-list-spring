@@ -35,5 +35,9 @@ public class TodoController {
         return todoMapper.toResponse(createdTodo);
     }
 
+    @GetMapping(params = {"done"})
+    private List<TodoResponse> getTodoByDone(@RequestParam("done") Boolean done){
+        return todoMapper.toResponseList(todoService.getTodoByDone(done));
+    }
 
 }
