@@ -2,11 +2,12 @@ package com.oocl.todoapp.services;
 
 import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TodoService {
     private TodoRepository todoRepository;
 
