@@ -45,4 +45,10 @@ public class TodoController {
         todoService.delete(id);
     }
 
+    @PutMapping("/{id}")
+    private TodoResponse update(@PathVariable("id") Integer id, @RequestBody TodoRequest todoRequest){
+        Todo todo = todoMapper.toEntity(todoRequest);
+        Todo updatedTodo = todoService.update(id, todo);
+        return todoMapper.toResponse(updatedTodo);
+    }
 }
