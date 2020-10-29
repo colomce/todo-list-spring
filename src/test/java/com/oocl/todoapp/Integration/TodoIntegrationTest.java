@@ -3,6 +3,7 @@ package com.oocl.todoapp.Integration;
 import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
 import com.oocl.todoapp.services.TodoService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +27,11 @@ public class TodoIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @AfterEach
+    void tearDown(){
+        todoRepository.deleteAll();
+    }
 
     @Test
     public void should_return_all_todos_when_getAll_given_1_todo() throws Exception {
@@ -88,4 +94,5 @@ public class TodoIntegrationTest {
         Optional<Todo> fetchDeletedTodo = todoRepository.findById(createdTodo.getId());
         assertFalse(fetchDeletedTodo.isPresent());
     }
+
 }
