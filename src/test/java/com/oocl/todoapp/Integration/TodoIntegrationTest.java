@@ -2,6 +2,7 @@ package com.oocl.todoapp.Integration;
 
 import com.oocl.todoapp.models.Todo;
 import com.oocl.todoapp.repository.TodoRepository;
+import com.oocl.todoapp.services.TodoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,8 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,4 +75,17 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$[0].done").value(false));
     }
 
+    @Test
+    public void should_delete_todo_when_delete() throws Exception {
+        //given
+        Todo todo = new Todo(1,"Code", false);
+        Todo createdTodo = todoRepository.save(todo);
+
+        //when then
+        mockMvc.perform(delete("/api/todos/{id}", createdTodo.getId()))
+                .andExpect(status().isOk());
+
+        Optional<Todo> fetchDeletedTodo = todoRepository.findById(createdTodo.getId());
+        assertFalse(fetchDeletedTodo.isPresent());
+    }
 }
