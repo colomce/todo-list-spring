@@ -30,6 +30,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup java -jar -Dspring.profiles.active=prd ./build/libs/todo-app-0.0.1-SNAPSHOT.jar &'
             }
         }
     }
