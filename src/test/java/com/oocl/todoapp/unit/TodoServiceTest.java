@@ -34,7 +34,7 @@ public class TodoServiceTest {
     @Test
     public void should_create_todo_with_id_i_when_create_given_todo_with_id_1() {
         //given
-        Todo newTodo = new Todo(1, "", true);
+        Todo newTodo = new Todo(1, "Code", true);
         TodoRepository todoRepository = mock(TodoRepository.class);
         TodoService todoService = new TodoService(todoRepository);
         when(todoRepository.save(newTodo)).thenReturn(newTodo);
