@@ -2,24 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Building..'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh "chmod +x gradlew"
+                withGradle {
+                    sh './gradlew build'
+                }
             }
         }
         stage('Unit Test') {
             steps {
-                echo 'Unit Testing..'
+                echo 'Running Unit Tests..'
+                withGradle {
+                    sh './gradlew test --tests com.oocl.todoapp.unit*'
+                }
             }
         }
         stage('Integration Test') {
             steps {
-                echo 'Integration Testing..'
+                echo 'Running Integration Tests..'
+                withGradle {
+                    sh './gradlew test --tests com.oocl.todoapp.Integration*'
+                }
             }
         }
         stage('Deploy') {
